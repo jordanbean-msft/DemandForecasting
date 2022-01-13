@@ -24,12 +24,11 @@ ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
 from azureml.core import Workspace
-import os, json, sys
+import json
 import azureml.core
 from azureml.core.authentication import AzureCliAuthentication
 
 print("SDK Version:", azureml.core.VERSION)
-# print('current dir is ' +os.curdir)
 with open("./configuration/config.json") as f:
     config = json.load(f)
 
@@ -55,10 +54,8 @@ except:
         name=workspace_name,
         subscription_id=subscription_id,
         resource_group=resource_group,
-        # create_resource_group=True,
         location=location,
         auth=cli_auth
-
     )
 
 # print Workspace details

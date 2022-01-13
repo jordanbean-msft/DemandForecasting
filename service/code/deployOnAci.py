@@ -23,14 +23,13 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
-import os, json, datetime, sys
-from operator import attrgetter
+import json, datetime, sys
 from azureml.core import Workspace
 from azureml.core import Environment
 from azureml.core.authentication import AzureCliAuthentication
 
 from azureml.core.model import InferenceConfig, Model
-from azureml.core.webservice import AciWebservice, Webservice
+from azureml.core.webservice import AciWebservice
 from azureml.core.environment import Environment
 
 with open("./configuration/config.json") as f:
@@ -43,9 +42,7 @@ location = config["location"]
 
 cli_auth = AzureCliAuthentication()
 
-
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,
@@ -54,7 +51,6 @@ ws = Workspace.get(
     )
 
 env = Environment.get(workspace=ws, name="AzureML-Minimal")
-#print(env)
 
 Environment(name="arimaenv")
 
@@ -112,15 +108,11 @@ except:
     print(service.state)
     print(service.get_logs())
 
-
 print(
     "Deployed ACI Webservice: {} \nWebservice Uri: {}".format(
         service.name, service.scoring_uri
     )
 )
-
-
-
 
 # Writing the ACI details to /aml_config/aci_webservice.json
 aci_webservice = {}

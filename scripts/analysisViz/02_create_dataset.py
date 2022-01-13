@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 header = ['BusinessEntityID', 'RateChangeDate',
           'Rate', 'PayFrequency', 'ModifiedDate']
 

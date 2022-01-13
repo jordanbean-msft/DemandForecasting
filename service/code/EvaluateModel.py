@@ -23,11 +23,10 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
-import os, json
+import json
 from azureml.core import Workspace
 from azureml.core import Experiment
 from azureml.core.model import Model
-import azureml.core
 from azureml.core import Run
 from azureml.core.authentication import AzureCliAuthentication
 
@@ -41,9 +40,7 @@ location = config["location"]
 
 cli_auth = AzureCliAuthentication()
 
-
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,
@@ -75,7 +72,6 @@ try:
     )
     production_model_run_id = production_model.tags.get("run_id")
     run_list = exp.get_runs()
-    # production_model_run = next(filter(lambda x: x.id == production_model_run_id, run_list))
 
     # Get the run history for both production model and newly trained model and compare R2
     production_model_run = Run(exp, run_id=production_model_run_id)

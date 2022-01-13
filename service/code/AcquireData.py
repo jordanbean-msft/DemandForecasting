@@ -1,13 +1,11 @@
 from zipfile import ZipFile
 import requests
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import json
 
 from azureml.core import Workspace
-from azureml.core import Experiment
-from azureml.core import Workspace, Datastore, Dataset
+from azureml.core import Workspace, Dataset
 from azureml.core.authentication import AzureCliAuthentication
 
 with open("./configuration/config.json") as f:
@@ -21,7 +19,6 @@ location = config["location"]
 cli_auth = AzureCliAuthentication()
 
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,

@@ -24,8 +24,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-
 python --version
-pip install azure-cli==2.0.69
+pip install azure-cli==2.22.1
 pip install --upgrade azureml-sdk[cli]
 pip install -r ./environment_setup/requirements.txt

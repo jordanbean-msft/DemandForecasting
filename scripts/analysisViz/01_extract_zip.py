@@ -8,6 +8,5 @@ zip_data = requests.get(url)
 with open('adventureworks.zip', 'wb') as f:
     f.write(zip_data.content)
 
-
 with ZipFile('adventureworks.zip', 'r') as fzip:
     fzip.extractall('csv_data')

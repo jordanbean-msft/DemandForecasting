@@ -23,14 +23,9 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
-import numpy
-import os, json, datetime, sys
-from operator import attrgetter
+import json, sys
 from azureml.core import Workspace
-from azureml.core.model import Model
-from azureml.core.image import Image
 from azureml.core.webservice import Webservice
-from azureml.core.webservice import AciWebservice
 from azureml.core.authentication import AzureCliAuthentication
 
 with open("./configuration/config.json") as f:
@@ -43,9 +38,7 @@ location = config["location"]
 
 cli_auth = AzureCliAuthentication()
 
-
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,
@@ -53,9 +46,6 @@ ws = Workspace.get(
         auth=cli_auth
     )
 
-
-# Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 # Get the ACI Details
 try:
     with open("./configuration/aci_webservice.json") as f:

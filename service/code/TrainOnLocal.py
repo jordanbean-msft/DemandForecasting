@@ -24,12 +24,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
 
-
 from azureml.core.runconfig import RunConfiguration
 from azureml.core import Workspace, Experiment, ScriptRunConfig
 import json
 from azureml.core.authentication import AzureCliAuthentication
-
 
 with open("./configuration/config.json") as f:
     config = json.load(f)
@@ -42,7 +40,6 @@ location = config["location"]
 cli_auth = AzureCliAuthentication()
 
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,
@@ -80,7 +77,6 @@ if run.get_status() == "Failed":
     )
 
 # Writing the run id to /aml_config/run_id.json
-
 run_id = {}
 run_id["run_id"] = run.id
 run_id["experiment_name"] = run.experiment.name

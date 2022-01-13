@@ -12,17 +12,13 @@ df = pd.read_csv('csv_data/forecast_data.csv', index_col=False)
 print(df.head())
 print(df.dtypes)
 
-
 df['RateChangeDate'] = pd.to_datetime(df['RateChangeDate'])
 df.set_index('RateChangeDate', inplace=True)
 
-
 # convert to time series
-
 ts = df['paidAmountSum']
 plt.plot(ts)
 plt.show()
-
 
 print("p-value:", adfuller(ts.dropna())[1])
 

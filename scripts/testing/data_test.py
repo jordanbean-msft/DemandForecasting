@@ -68,7 +68,6 @@ historical_std = np.array(
 # maximal relative change in feature mean or standrd deviation that we can tolerate
 shift_tolerance = 3
 
-
 def check_schema(X):
     n_actual_columns = X.shape[1]
     if n_actual_columns != n_columns:
@@ -81,14 +80,12 @@ def check_schema(X):
 
     return True
 
-
 def check_missing_values(dataset):
     n_nan = np.sum(np.isnan(dataset.values))
     if n_nan > 0:
         print("Warning: the data has {} missing values".format(n_nan))
         return False
     return True
-
 
 def check_distribution(dataset):
     mean = np.mean(dataset.values, axis=0)
@@ -100,7 +97,6 @@ def check_distribution(dataset):
         print("Warning: new data has different distribution than the training data")
         return False
     return True
-
 
 def main():
     filename = sys.argv[1]
@@ -118,7 +114,6 @@ def main():
             print(
                 "There might be some issues with the data. Please check warning messages."
             )
-
 
 if __name__ == "__main__":
     main()

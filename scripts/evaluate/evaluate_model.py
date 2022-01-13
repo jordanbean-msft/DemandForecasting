@@ -1,17 +1,13 @@
 """
 Evaluating model
 """
-import os, json
-from azureml.core import Workspace
-from azureml.core import Experiment
+import json
 from azureml.core.model import Model
-import azureml.core
 from azureml.core import Run
 import argparse
 
 run = Run.get_context()
 # Get workspace
-# ws = Workspace.from_config()
 run.experiment.workspace
 exp = run.experiment
 
@@ -19,18 +15,10 @@ exp = run.experiment
 # Add golden data set on which all the model performance can be evaluated
 
 # Get the latest run_id
-# with open("aml_config/run_id.json") as f:
-#     config = json.load(f)
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--train_run_id',type=str,default='',help='Run id of the newly trained model')
-#parser.add_argument('--model_assets_path',type=str,default='outputs',help='Location of trained model.')
 
-
-new_model_run_id = args.train_run_id # config["run_id"]
-# experiment_name = config["experiment_name"]
-# exp = Experiment(workspace=ws, name=experiment_name)
-
+new_model_run_id = args.train_run_id
 
 try:
     # Get most recently registered model, we assume that is the model in production. Download this model and compare it with the recently trained model by running test with same data set.
@@ -43,7 +31,6 @@ try:
     )
     production_model_run_id = production_model.tags.get("run_id")
     run_list = exp.get_runs()
-    # production_model_run = next(filter(lambda x: x.id == production_model_run_id, run_list))
 
     # Get the run history for both production model and newly trained model and compare mse
     production_model_run = Run(exp, run_id=production_model_run_id)
@@ -67,6 +54,7 @@ except:
 
 run_id = {}
 run_id["run_id"] = ""
+
 # Writing the run id to /aml_config/run_id.json
 if promote_new_model:
     run_id["run_id"] = new_model_run_id

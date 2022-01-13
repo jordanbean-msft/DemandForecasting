@@ -1,31 +1,20 @@
-
 import os
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-import json
 import joblib
 
-from pandas import Grouper
-#from pandas.plotting import lag_plot
-#from pandas.plotting import autocorrelation_plot
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.graphics.tsaplots import plot_pacf
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
-#from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import adfuller
-#from sklearn.model_selection import TimeSeriesSplit
-#from statsmodels.graphics.gofplots import qqplot
 from statsmodels.tsa.arima_model import ARIMA
 
 from azureml.core import Dataset, Run
 
 run = Run.get_context()
-# get input dataset by name
-#dataset = run.input_datasets['transaction_ts']
 
 ws = run.experiment.workspace
 dataset1 = Dataset.get_by_name(workspace=ws, name='transaction_ts2013')
@@ -72,9 +61,6 @@ print(model_fit.summary())
 residuals = pd.DataFrame(model_fit.resid)
 residuals.plot(title="Residuals Error Plot")
 plt.show()
-#residuals.plot(kind='kde')
-#plt.show()
-#print(residuals.describe())
 
 predictions=model_fit.forecast(steps=test.size)[0]
 

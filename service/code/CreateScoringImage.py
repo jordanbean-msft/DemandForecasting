@@ -39,9 +39,7 @@ location = config["location"]
 
 cli_auth = AzureCliAuthentication()
 
-
 # Get workspace
-#ws = Workspace.from_config(auth=cli_auth)
 ws = Workspace.get(
         name=workspace_name,
         subscription_id=subscription_id,
@@ -50,7 +48,6 @@ ws = Workspace.get(
     )
 
 # Get the latest model details
-
 try:
     with open("./configuration/model.json") as f:
         config = json.load(f)
@@ -61,7 +58,6 @@ except:
 
 model_name = config["model_name"]
 model_version = config["model_version"]
-
 
 model_list = Model.list(workspace=ws)
 model, = (m for m in model_list if m.version == model_version and m.name == model_name)
@@ -109,6 +105,3 @@ image_json["image_version"] = image.version
 image_json["image_location"] = image.image_location
 with open("./configuration/image.json", "w") as outfile:
     json.dump(image_json, outfile)
-
-
-# How to fix the schema for a model, like if we have multiple models expecting different schema,

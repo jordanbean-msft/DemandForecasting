@@ -9,32 +9,20 @@ import json
 import joblib
 
 from pandas import Grouper
-#from pandas.plotting import lag_plot
-#from pandas.plotting import autocorrelation_plot
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.graphics.tsaplots import plot_pacf
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
-#from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import adfuller
-#from sklearn.model_selection import TimeSeriesSplit
-#from statsmodels.graphics.gofplots import qqplot
 from statsmodels.tsa.arima_model import ARIMA
 
 from azureml.core import Dataset, Run
 
 run = Run.get_context()
-# get input dataset by name
-#dataset = run.input_datasets['transaction_ts']
 
 ws = run.experiment.workspace
 dataset1 = Dataset.get_by_name(workspace=ws, name='transaction_ts2013')
-df1 = dataset1.to_pandas_dataframe()
-
-dataset2 = Dataset.get_by_name(workspace=ws, name='transaction_ts2014')
-df2 = dataset2.to_pandas_dataframe()
-
-df = pd.concat([df1, df2])
+df = dataset1.to_pandas_dataframe()
 
 df.set_index('TransactionDate',inplace=True)
 df.columns = ['PaidAmount']
