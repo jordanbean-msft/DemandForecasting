@@ -87,7 +87,7 @@ pyasn1==0.4.8
 pycodestyle==2.5.0
 pycparser==2.20
 pydeck==0.4.0b2
-Pygments==2.5.2
+Pygments==2.15.0
 PyJWT==1.7.1
 pyOpenSSL==19.1.0
 pyparsing==2.4.6
